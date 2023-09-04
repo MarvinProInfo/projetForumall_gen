@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Sujet n°{% endblock %}
+
+{% block content %}
+
+{{form(formMSG)}}
+{% if messages is not empty %}
+    {% for message in messages %}
+       {% if sujet.id == message.sujet.id %}
+        <div class="{{ (app.user is defined and message.utilisateur.id == app.user.id) ? "bg-light" : "bg-info" }}">
+            {# {% if user.id == sujet.utilisateur.id %} #}
+            <p class="mt-2">par : {{user.pseudo}}</p>
+            {# {% endif %} #}
+            <p class="my-3 h4">{{message.message}}</h2>
+            <p class="">Date de création: {{message.DateCreation|date('Y-m-d')}}</p>
+        </div>
+        
+       {% else %}
+       
+       {% endif %}
+    {% endfor %}
+    
+{% endif %}
+{% endblock %}

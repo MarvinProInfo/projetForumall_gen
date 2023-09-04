@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+
+{% block content %}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Pseudo</th>
+            <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr class="table-info">
+            <th scope="row">{{user.nom}}</th>
+            <td>{{user.prenom}}</td>
+            <td>{{user.pseudo}}</td>
+            <td>
+            <a href="" class="btn btn-primary"><i class="fa-solid fa-user"></i></a>
+            <a href="{{path('app_moderateur',{id:user.id})}}" class="btn btn-success"><i class="fa-solid fa-address-card"></i></a>
+            <a href="{{path('app_remove_user',{id:user.id})}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

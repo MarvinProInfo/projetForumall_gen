@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Liste des sujets{% endblock %}
+
+{% block content %}
+        <h1 class="text-center">Liste des sujets</h1>
+        <a href="{{path('app_sujet_new')}}" class="btn btn-info">Nouveau Sujet<a/>
+
+     
+<div class="d-flex p-3 mb-2 bg-primary text-white">
+{% for sujet in sujets %}
+    <div class="card text-white bg-primary" style="max-width: 20rem;">
+    <div class="card-header">{{sujet.id}}. {{sujet.titre}}</div>
+    <div class="card-body">
+        <p class="card-title">Categorie: {{sujet.Categorie}}</p>
+        <p class="card-title">Date de création: {{sujet.DateCréation|date('Y-m-d')}}</p>
+        <a href="{{path('app_sujet_message',{id:sujet.id})}}" class="btn btn-info">Entrer</a>
+        <a href="{{path('app_sujet_update',{id:sujet.id})}}" class="btn btn-info">Modifier sujet</a>
+        {# {% if app.user.id == app.session.id %} #}
+        <a href="{{path('app_sujet_remove',{id:sujet.id})}}" class="btn btn-danger">Effacer</a>
+        {# {% endif %} #}
+    </div>
+{% endfor %}
+</div>
+    
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <section class="bg-light p-3">
+        <h1>Votre panier</h1>
+    </section>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="50%">Produit</th>
+                <th width="10%" class="text-center">Prix</th>
+                <th width="5%" class="text-center">Quantité</th>
+                <th width="10%" class="text-center">Total</th>
+                <th width="20%">Panier</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in dataPanier %}
+                <tr>
+                    <td><a href="{{ path('products_show', {'id': element.produit.id}) }}">{{ element.produit.title }}</a></td>
+                    <td class="text-center">{{ element.produit.prix|number_format(2, ',', ' ') }} €</td>
+                    <td class="text-center">{{ element.quantite }}</td>
+                    <td class="text-center">{{ (element.quantite * element.produit.price)|number_format(2, ',', ' ') }} €</td>
+                    <td>
+                        <a href="{{path("cart_add", {id: element.produit.id})}}" class="btn btn-success">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                        <a href="{{path("cart_remove", {id: element.produit.id})}}" class="btn btn-warning">
+                            <i class="bi bi-cart-dash"></i>
+                        </a>
+                        <a href="{{path("cart_delete", {id: element.produit.id})}}" class="btn btn-danger">
+                            <i class="bi bi-cart-x"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="fw-bold">Total</td>
+                <td class="text-center fw-bold">{{ total|number_format(2, ',', ' ') }} €</td>
+                <td>
+                    <a href="{{ path('cart_commande') }}" class="btn btn-success">Commander</a>
+                    <a href="{{path("cart_delete_all")}}" class="btn btn-danger">Vider</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    
+{% endblock %}
